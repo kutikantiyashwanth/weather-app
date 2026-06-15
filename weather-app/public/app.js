@@ -1,6 +1,6 @@
 /* ═══════════════════════════════════════════════════════
    SKIES — Full Stack Weather App  |  app.js
-   Assessment #1 (Frontend) + Assessment #2 (Backend)
+
    ═══════════════════════════════════════════════════════ */
 'use strict';
 
