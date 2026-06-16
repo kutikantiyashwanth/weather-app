@@ -207,26 +207,26 @@ function setGeoBtnLoading(loading) {
    WEATHER THEMES + PARTICLES
    ════════════════════════════════════════════════════════════════ */
 const THEMES = {
-  Clear:        { a:'#0f2b4a', b:'#1a4080', glow:'rgba(250,190,50,0.35)',  accent:'#60a5fa', particles:true  },
-  Clouds:       { a:'#1a1f2e', b:'#2d3550', glow:'rgba(148,163,184,0.25)', accent:'#94a3b8', particles:false },
-  Rain:         { a:'#0a1628', b:'#0d2845', glow:'rgba(96,165,250,0.3)',   accent:'#38bdf8', particles:true  },
-  Drizzle:      { a:'#0a1628', b:'#0d2845', glow:'rgba(96,165,250,0.25)',  accent:'#7dd3fc', particles:false },
-  Thunderstorm: { a:'#0d0f1a', b:'#1a1040', glow:'rgba(167,139,250,0.4)', accent:'#a78bfa', particles:true  },
-  Snow:         { a:'#0f1c30', b:'#162540', glow:'rgba(186,230,253,0.3)',  accent:'#bae6fd', particles:true  },
-  Mist:         { a:'#111827', b:'#1f2937', glow:'rgba(156,163,175,0.2)', accent:'#9ca3af', particles:false },
-  Fog:          { a:'#111827', b:'#1f2937', glow:'rgba(156,163,175,0.2)', accent:'#9ca3af', particles:false },
-  Haze:         { a:'#1c1206', b:'#2d1e0a', glow:'rgba(251,191,36,0.2)',  accent:'#fbbf24', particles:false },
-  Dust:         { a:'#1c1206', b:'#2d1e0a', glow:'rgba(251,146,60,0.2)',  accent:'#fb923c', particles:false },
-  default:      { a:'#0f1928', b:'#1a2a40', glow:'rgba(96,165,250,0.2)',  accent:'#60a5fa', particles:false },
+  Clear:        { a:'#020818', b:'#060d28', glow:'rgba(0,255,231,0.25)',  accent:'#00ffe7', particles:true  },
+  Clouds:       { a:'#080612', b:'#0d0b20', glow:'rgba(120,80,255,0.18)', accent:'#a060ff', particles:false },
+  Rain:         { a:'#020a18', b:'#040e28', glow:'rgba(0,128,255,0.22)',  accent:'#0080ff', particles:true  },
+  Drizzle:      { a:'#020a18', b:'#040e28', glow:'rgba(0,128,255,0.15)',  accent:'#60b4ff', particles:false },
+  Thunderstorm: { a:'#080010', b:'#12001e', glow:'rgba(155,0,255,0.35)',  accent:'#9b00ff', particles:true  },
+  Snow:         { a:'#040c1c', b:'#06122a', glow:'rgba(180,220,255,0.2)', accent:'#b4dcff', particles:true  },
+  Mist:         { a:'#060510', b:'#0a0a1a', glow:'rgba(100,90,180,0.15)', accent:'#8880cc', particles:false },
+  Fog:          { a:'#060510', b:'#0a0a1a', glow:'rgba(100,90,180,0.15)', accent:'#8880cc', particles:false },
+  Haze:         { a:'#100600', b:'#1a0c00', glow:'rgba(255,200,60,0.15)', accent:'#ffc83c', particles:false },
+  Dust:         { a:'#120500', b:'#1e0a00', glow:'rgba(255,107,0,0.15)',  accent:'#ff6b00', particles:false },
+  default:      { a:'#03050f', b:'#070d22', glow:'rgba(155,0,255,0.18)',  accent:'#9b00ff', particles:false },
 };
 
 function applyTheme(condition) {
   const t = THEMES[condition] || THEMES.default;
   const r = document.documentElement;
-  r.style.setProperty('--theme-a',      t.a);
-  r.style.setProperty('--theme-b',      t.b);
-  r.style.setProperty('--theme-glow',   t.glow);
-  r.style.setProperty('--theme-accent', t.accent);
+  r.style.setProperty('--wx-a',      t.a);
+  r.style.setProperty('--wx-b',      t.b);
+  r.style.setProperty('--wx-glow',   t.glow);
+  r.style.setProperty('--wx-accent', t.accent);
   if (heroIconGlow) heroIconGlow.style.background = t.glow;
   if (t.particles) spawnParticles(); else clearParticles();
 }
@@ -296,7 +296,7 @@ function renderWeather(w) {
   renderComfort(cur, w);
   resetBookmarkBtn();
 
-  document.title = `${w.city} — ${fmt(cur.temp)} · Skies`;
+  document.title = `${w.city} — ${fmt(cur.temp)} // STRATUS`;
 }
 
 function rerender() { if (S.weather) renderWeather(S.weather); }
