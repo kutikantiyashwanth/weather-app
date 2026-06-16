@@ -207,17 +207,17 @@ function setGeoBtnLoading(loading) {
    WEATHER THEMES + PARTICLES
    ════════════════════════════════════════════════════════════════ */
 const THEMES = {
-  Clear:        { a:'#020818', b:'#060d28', glow:'rgba(0,255,231,0.25)',  accent:'#00ffe7', particles:true  },
-  Clouds:       { a:'#080612', b:'#0d0b20', glow:'rgba(120,80,255,0.18)', accent:'#a060ff', particles:false },
-  Rain:         { a:'#020a18', b:'#040e28', glow:'rgba(0,128,255,0.22)',  accent:'#0080ff', particles:true  },
-  Drizzle:      { a:'#020a18', b:'#040e28', glow:'rgba(0,128,255,0.15)',  accent:'#60b4ff', particles:false },
-  Thunderstorm: { a:'#080010', b:'#12001e', glow:'rgba(155,0,255,0.35)',  accent:'#9b00ff', particles:true  },
-  Snow:         { a:'#040c1c', b:'#06122a', glow:'rgba(180,220,255,0.2)', accent:'#b4dcff', particles:true  },
-  Mist:         { a:'#060510', b:'#0a0a1a', glow:'rgba(100,90,180,0.15)', accent:'#8880cc', particles:false },
-  Fog:          { a:'#060510', b:'#0a0a1a', glow:'rgba(100,90,180,0.15)', accent:'#8880cc', particles:false },
-  Haze:         { a:'#100600', b:'#1a0c00', glow:'rgba(255,200,60,0.15)', accent:'#ffc83c', particles:false },
-  Dust:         { a:'#120500', b:'#1e0a00', glow:'rgba(255,107,0,0.15)',  accent:'#ff6b00', particles:false },
-  default:      { a:'#03050f', b:'#070d22', glow:'rgba(155,0,255,0.18)',  accent:'#9b00ff', particles:false },
+  Clear:        { a:'#100400', b:'#1e0800', glow:'rgba(255,179,0,0.28)',  accent:'#ffb300', particles:true  },
+  Clouds:       { a:'#08060e', b:'#0e0a18', glow:'rgba(199,36,255,0.15)', accent:'#c724ff', particles:false },
+  Rain:         { a:'#020610', b:'#040a1e', glow:'rgba(41,121,255,0.22)', accent:'#2979ff', particles:true  },
+  Drizzle:      { a:'#020610', b:'#040a1e', glow:'rgba(41,121,255,0.15)', accent:'#60a0ff', particles:false },
+  Thunderstorm: { a:'#0a0010', b:'#14001e', glow:'rgba(199,36,255,0.35)', accent:'#c724ff', particles:true  },
+  Snow:         { a:'#04080e', b:'#060e1a', glow:'rgba(200,220,255,0.2)', accent:'#c8dcff', particles:true  },
+  Mist:         { a:'#080608', b:'#0e0a0e', glow:'rgba(180,120,200,0.15)',accent:'#b478c8', particles:false },
+  Fog:          { a:'#080608', b:'#0e0a0e', glow:'rgba(180,120,200,0.15)',accent:'#b478c8', particles:false },
+  Haze:         { a:'#100800', b:'#1c0e00', glow:'rgba(255,179,0,0.18)',  accent:'#ffb300', particles:false },
+  Dust:         { a:'#120600', b:'#1e0a00', glow:'rgba(255,109,0,0.18)',  accent:'#ff6d00', particles:false },
+  default:      { a:'#06030e', b:'#0c0620', glow:'rgba(199,36,255,0.15)', accent:'#c724ff', particles:false },
 };
 
 function applyTheme(condition) {
@@ -296,7 +296,7 @@ function renderWeather(w) {
   renderComfort(cur, w);
   resetBookmarkBtn();
 
-  document.title = `${w.city} — ${fmt(cur.temp)} // STRATUS`;
+  document.title = `${w.city} — ${fmt(cur.temp)} · GlobeWeather`;
 }
 
 function rerender() { if (S.weather) renderWeather(S.weather); }

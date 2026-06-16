@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Stratus — Terminal-grade weather intelligence. Live conditions, forecasts, UV index, air quality and more." />
-  <title>STRATUS // WX</title>
+  <meta name="description" content="GlobeWeather — Real-time weather intelligence. Current conditions, forecasts, UV index, air quality and more." />
+  <title>GlobeWeather</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
@@ -24,24 +24,29 @@
 <header class="app-header" role="banner">
   <div class="header-inner">
 
-    <div class="logo" aria-label="Stratus Weather Terminal">
+    <div class="logo" aria-label="GlobeWeather App">
       <div class="logo-mark" aria-hidden="true">
         <svg viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- Barometer / compass ring -->
-          <circle cx="17" cy="17" r="16" stroke="rgba(245,166,35,0.35)" stroke-width="1"/>
-          <circle cx="17" cy="17" r="12" stroke="rgba(245,166,35,0.2)" stroke-width="1"/>
-          <!-- Cardinal tick marks -->
-          <line x1="17" y1="2" x2="17" y2="5"   stroke="#f5a623" stroke-width="1.5" stroke-linecap="round"/>
-          <line x1="17" y1="29" x2="17" y2="32"  stroke="rgba(245,166,35,0.4)" stroke-width="1" stroke-linecap="round"/>
-          <line x1="2"  y1="17" x2="5"  y2="17"  stroke="rgba(245,166,35,0.4)" stroke-width="1" stroke-linecap="round"/>
-          <line x1="29" y1="17" x2="32" y2="17"  stroke="rgba(245,166,35,0.4)" stroke-width="1" stroke-linecap="round"/>
-          <!-- Wind arrow needle -->
-          <path d="M17 9 L19.5 20 L17 18 L14.5 20 Z" fill="#f5a623" opacity="0.9"/>
-          <!-- Center dot -->
-          <circle cx="17" cy="17" r="2" fill="#f5a623"/>
+          <!-- Globe ring -->
+          <circle cx="17" cy="17" r="15" stroke="rgba(255,109,0,0.4)" stroke-width="1.2"/>
+          <!-- Latitude lines -->
+          <ellipse cx="17" cy="17" rx="15" ry="6" stroke="rgba(255,179,0,0.25)" stroke-width="0.8"/>
+          <!-- Vertical axis -->
+          <line x1="17" y1="2" x2="17" y2="32" stroke="rgba(255,109,0,0.2)" stroke-width="0.8"/>
+          <!-- Sun ray -->
+          <circle cx="17" cy="9" r="4" fill="url(#sunGrad)" opacity="0.9"/>
+          <!-- Cloud arc -->
+          <path d="M8 21 Q10 17 14 18 Q15 14 20 15 Q24 15 24 20 Q24 23 20 23 H10 Q7 23 8 21Z"
+                fill="rgba(199,36,255,0.35)" stroke="rgba(199,36,255,0.5)" stroke-width="0.6"/>
+          <defs>
+            <radialGradient id="sunGrad" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#ffe259"/>
+              <stop offset="100%" stop-color="#ff6d00"/>
+            </radialGradient>
+          </defs>
         </svg>
       </div>
-      <span class="logo-text">STR<em>A</em>TUS</span>
+      <span class="logo-text">Globe<em>Weather</em></span>
     </div>
 
     <div class="search-wrapper" role="search">
@@ -112,7 +117,7 @@
         <div class="welcome-icon-ring ring-3"></div>
         <span class="welcome-icon">⛅</span>
       </div>
-      <h1 class="welcome-title">Weather, <em>terminal-grade</em></h1>
+      <h1 class="welcome-title">Weather, <em>globally</em></h1>
       <p class="welcome-sub">Search any city worldwide for live conditions, hourly forecasts, UV index, air quality, dew point, and smart hazard advisories.</p>
       <button class="welcome-geo-btn" id="welcomeGeoBtn">
         <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M10 2v2M10 16v2M2 10h2M16 10h2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>

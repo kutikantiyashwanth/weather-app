@@ -53,15 +53,18 @@ async def geocode(query: str) -> list[dict]:
 
 async def reverse_geocode(lat: float, lon: float) -> dict:
     """Reverse geocode coordinates → city name and country."""
-    r = await _client.get(
-        f"{BASE_URL}/geo/1.0/reverse",
-        params={"lat": lat, "lon": lon, "limit": 1, "appid": _api_key()},
-    )
-    r.raise_for_status()
-    data = r.json()
-    if not data:
+    try:
+        r = await _client.get(
+            f"{BASE_URL}/geo/1.0/reverse",
+            params={"lat": lat, "lon": lon, "limit": 1, "appid": _api_key()},
+        )
+        r.raise_for_status()
+        data = r.json()
+        if not data:
+            return {"city": "Unknown", "country": "XX"}
+        return {"city": data[0]["name"], "country": data[0]["country"]}
+    except Exception:
         return {"city": "Unknown", "country": "XX"}
-    return {"city": data[0]["name"], "country": data[0]["country"]}
 
 
 # ════════════════════════════════════════════════
