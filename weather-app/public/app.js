@@ -395,8 +395,8 @@ function renderComfort(cur, w) {
   const tile = (label, value, context, barPct, gradient, uvCls = '') => {
     const el = document.createElement('div');
     el.className = 'comfort-tile';
-    el.style.setProperty('--tile-accent', gradient || 'linear-gradient(90deg,var(--c-blue),var(--c-purple))');
-    const bar = barPct != null ? `<div class="tile-bar"><div class="tile-bar-fill" style="width:${Math.min(barPct,100)}%;background:${gradient||'var(--c-blue)'}"></div></div>` : '';
+    el.style.setProperty('--tile-accent', gradient || 'linear-gradient(90deg,var(--blue),var(--purple))');
+    const bar = barPct != null ? `<div class="tile-bar"><div class="tile-bar-fill" style="width:${Math.min(barPct,100)}%;background:${gradient||'var(--blue)'}"></div></div>` : '';
     el.innerHTML = `<div class="tile-label">${label}</div><div class="tile-value ${uvCls}">${value}</div><div class="tile-context">${context}</div>${bar}`;
     comfortDetails.appendChild(el);
   };
@@ -568,7 +568,7 @@ async function loadHistory() {
       historyList.appendChild(el);
     });
   } catch (err) {
-    historyList.innerHTML = `<div class="drawer-empty" style="color:var(--c-red)">⚠️ ${err.message}</div>`;
+    historyList.innerHTML = `<div class="drawer-empty" style="color:var(--red)">⚠️ ${err.message}</div>`;
   }
 }
 
@@ -613,7 +613,7 @@ async function loadSaved() {
       savedList.appendChild(el);
     });
   } catch (err) {
-    savedList.innerHTML = `<div class="drawer-empty" style="color:var(--c-red)">⚠️ ${err.message}</div>`;
+    savedList.innerHTML = `<div class="drawer-empty" style="color:var(--red)">⚠️ ${err.message}</div>`;
   }
 }
 
@@ -752,7 +752,7 @@ async function loadRecords(tab) {
       rows.forEach((r, i) => renderLocationCard(r, i));
     }
   } catch (err) {
-    recordsList.innerHTML = `<div class="records-empty" style="color:var(--c-red)">⚠️ ${err.message}</div>`;
+    recordsList.innerHTML = `<div class="records-empty" style="color:var(--red)">⚠️ ${err.message}</div>`;
   }
 }
 
@@ -773,7 +773,7 @@ function renderRangeCard(r, i) {
             <span class="record-tag record-tag--blue">📍 ${escHtml(r.city)}, ${escHtml(r.country)}</span>
             <span class="record-tag">📅 ${r.date_from} → ${r.date_to}</span>
             <span class="record-tag">${r.days} day${r.days!==1?'s':''}</span>
-            <span class="record-tag" style="color:var(--c-text-3)">${timeAgo(r.createdAt)}</span>
+            <span class="record-tag" style="color:var(--ink-3)">${timeAgo(r.createdAt)}</span>
           </div>
         </div>
       </div>
@@ -827,26 +827,44 @@ function renderSearchCard(r, i) {
   const el = document.createElement('div');
   el.className = 'record-card';
   el.style.animationDelay = `${i * 0.05}s`;
+  // Set green accent for search cards
+  el.style.setProperty('--card-accent', 'linear-gradient(90deg,#10b981,#06b6d4)');
+
+  const icon = r.condition_icon
+    ? `<img src="https://openweathermap.org/img/wn/${r.condition_icon}@2x.png" style="width:36px;height:36px;display:block" alt="${r.condition||''}"/>`
+    : '<span style="font-size:1.6rem">🔍</span>';
+
   el.innerHTML = `
-    <div class="record-card-header">
-      <div class="record-card-left">
-        <div class="record-badge record-badge--search">${r.condition_icon ? `<img src="https://openweathermap.org/img/wn/${r.condition_icon}.png" style="width:28px" alt=""/>` : '🔍'}</div>
-        <div class="record-info">
+    <div class="record-card-header" style="align-items:flex-start;">
+      <div class="record-card-left" style="flex:1;min-width:0;">
+        <div class="record-badge record-badge--search">${icon}</div>
+        <div class="record-info" style="min-width:0;">
           <div class="record-title">${escHtml(r.city)}, ${escHtml(r.country)}</div>
-          <div class="record-sub">
+          <div class="record-sub" style="margin-top:4px;">
             <span class="record-tag record-tag--green">🔍 "${escHtml(r.query)}"</span>
-            ${r.temp_c != null ? `<span class="record-tag">${fmt(r.temp_c)}</span>` : ''}
-            <span class="record-tag" style="color:var(--c-text-3)">${timeAgo(r.createdAt||r.created_at)}</span>
+            ${r.temp_c != null ? `<span class="record-tag">🌡 ${fmt(r.temp_c)}</span>` : ''}
+            ${r.condition ? `<span class="record-tag">${escHtml(r.condition)}</span>` : ''}
+          </div>
+          <div style="margin-top:5px;font-family:var(--font-mono);font-size:var(--fs-2xs);color:var(--t-tertiary);">
+            ${r.lat != null ? `📍 ${Number(r.lat).toFixed(3)}, ${Number(r.lon).toFixed(3)}` : ''}
+            <span style="margin-left:0.5rem;opacity:0.6">${timeAgo(r.createdAt||r.created_at)}</span>
           </div>
         </div>
       </div>
-      <div class="record-actions">
+      <div style="display:flex;flex-direction:column;gap:6px;flex-shrink:0;padding-top:2px;">
         <button class="rec-action-btn rec-action-btn--view" title="Re-search">
           <svg viewBox="0 0 12 12" fill="none"><circle cx="5" cy="5" r="3.5" stroke="currentColor" stroke-width="1.2"/><path d="m9 9-1.5-1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg> Search
         </button>
         <button class="rec-action-btn rec-action-btn--del" title="Delete">
           <svg viewBox="0 0 12 12" fill="none"><path d="M2 3h8M5 3V2h2v1M4 5v4M8 5v4M3 3l.5 7h5L9 3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg> Delete
         </button>
+      </div>
+    </div>
+    <div class="record-card-body" style="margin-top:auto;">
+      <div class="record-weather-snap">
+        ${r.condition_icon ? `<img src="https://openweathermap.org/img/wn/${r.condition_icon}.png" alt=""/>` : ''}
+        ${r.temp_c != null ? `<span class="record-weather-temp">${fmt(r.temp_c)}</span>` : ''}
+        ${r.condition ? `<span style="color:var(--t-secondary);font-size:var(--fs-xs);text-transform:capitalize">${escHtml(r.condition.toLowerCase())}</span>` : ''}
       </div>
     </div>`;
 
@@ -861,6 +879,8 @@ function renderSearchCard(r, i) {
       await apiFetch(`${API}/weather/history/${r._id||r.id}`, { method:'DELETE' });
       el.remove();
       toast_show('Search record deleted', 'success');
+      if (!recordsList.querySelector('.record-card'))
+        recordsList.innerHTML = '<div class="records-empty"><span class="records-empty-icon">🔍</span>No search history yet.</div>';
     } catch (err) { toast_show(err.message||'Could not delete','error'); }
   });
 
@@ -881,7 +901,7 @@ function renderLocationCard(r, i) {
           <div class="record-sub">
             <span class="record-tag record-tag--orange">${escHtml(r.city)}, ${escHtml(r.country)}</span>
             <span class="record-tag">${r.lat.toFixed(4)}, ${r.lon.toFixed(4)}</span>
-            <span class="record-tag" style="color:var(--c-text-3)">${timeAgo(r.createdAt||r.created_at)}</span>
+            <span class="record-tag" style="color:var(--ink-3)">${timeAgo(r.createdAt||r.created_at)}</span>
           </div>
         </div>
       </div>
@@ -1134,3 +1154,158 @@ rangeModal.classList.add('hidden');
 rangeModalOverlay.classList.add('hidden');
 editModal.classList.add('hidden');
 editModalOverlay.classList.add('hidden');
+
+
+
+/* ════════════════════════════════════════════════════════════════
+   DECCAN.AI-INSPIRED ANIMATIONS
+   ════════════════════════════════════════════════════════════════ */
+
+// ── Headline word entrance ────────────────────────────────────────
+function animateHeadline() {
+  const words = document.querySelectorAll('.headline-word');
+  words.forEach((w, i) => {
+    setTimeout(() => w.classList.add('word-visible'), 100 + i * 160);
+  });
+}
+animateHeadline();
+
+// ── Scroll reveal (IntersectionObserver) ─────────────────────────
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('revealed');
+      revealObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+function initReveal() {
+  document.querySelectorAll('[data-reveal]').forEach(el => revealObserver.observe(el));
+}
+initReveal();
+
+// ── Stagger comfort tiles on render ──────────────────────────────
+const tileObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const tiles = e.target.querySelectorAll('.comfort-tile');
+      tiles.forEach((t, i) => {
+        setTimeout(() => t.classList.add('tile-visible'), i * 60);
+      });
+      tileObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.05 });
+
+function observeComfort() {
+  const mosaic = document.querySelector('.comfort-mosaic');
+  if (mosaic) tileObserver.observe(mosaic);
+}
+
+// ── Stagger hourly items on render ───────────────────────────────
+function animateHourly() {
+  const items = document.querySelectorAll('.hourly-item');
+  items.forEach((item, i) => {
+    setTimeout(() => item.classList.add('item-visible'), i * 40);
+  });
+}
+
+// ── Stagger daily items on render ────────────────────────────────
+function animateDaily() {
+  const items = document.querySelectorAll('.daily-item');
+  items.forEach((item, i) => {
+    setTimeout(() => item.classList.add('item-visible'), i * 60);
+  });
+}
+
+// ── Stagger hero stats on render ─────────────────────────────────
+function animateStats() {
+  const stats = document.querySelectorAll('.hero-stat');
+  stats.forEach((s, i) => {
+    s.classList.remove('stat-in');
+    setTimeout(() => s.classList.add('stat-in'), i * 50);
+  });
+}
+
+// ── Hero city text reveal ─────────────────────────────────────────
+function animateCity() {
+  const cityEl = document.getElementById('heroCity');
+  if (!cityEl) return;
+  const text = cityEl.textContent;
+  cityEl.innerHTML = `<span class="hero-city-inner">${text}</span>`;
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      const inner = cityEl.querySelector('.hero-city-inner');
+      if (inner) inner.classList.add('city-visible');
+    });
+  });
+}
+
+// ── Stagger record cards ──────────────────────────────────────────
+function animateRecordCards() {
+  const cards = document.querySelectorAll('.record-card');
+  cards.forEach((c, i) => {
+    c.style.transitionDelay = `${i * 0.05}s`;
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => c.classList.add('card-visible'));
+    });
+  });
+}
+
+// ── Parallax orbs on mousemove ────────────────────────────────────
+document.addEventListener('mousemove', (e) => {
+  const x = (e.clientX / window.innerWidth  - 0.5) * 18;
+  const y = (e.clientY / window.innerHeight - 0.5) * 18;
+  const orb1 = document.querySelector('.orb-1');
+  const orb2 = document.querySelector('.orb-2');
+  if (orb1) orb1.style.transform = `translate(${x * 0.4}px, ${y * 0.4}px) scale(1)`;
+  if (orb2) orb2.style.transform = `translate(${-x * 0.3}px, ${-y * 0.3}px) scale(1)`;
+}, { passive: true });
+
+// ── Hook into weather render to trigger animations ────────────────
+const _origRenderWeather = renderWeather;
+window._weatherAnimationPatch = function(w) {
+  // Re-init reveal for new DOM
+  setTimeout(() => {
+    initReveal();
+    observeComfort();
+    animateHourly();
+    animateDaily();
+    animateStats();
+    animateCity();
+  }, 50);
+};
+
+// Patch renderWeather to call animation hooks
+const origRenderWeather = renderWeather;
+// Override via prototype isn't possible cleanly, so we hook post-render
+// by observing weatherResults visibility
+const resultObserver = new MutationObserver(() => {
+  const results = document.getElementById('weatherResults');
+  if (results && !results.classList.contains('hidden')) {
+    setTimeout(() => {
+      initReveal();
+      observeComfort();
+      animateHourly();
+      animateDaily();
+      animateStats();
+      animateCity();
+    }, 80);
+  }
+});
+const weatherResultsEl = document.getElementById('weatherResults');
+if (weatherResultsEl) {
+  resultObserver.observe(weatherResultsEl, { attributes: true, attributeFilter: ['class'] });
+}
+
+// ── Hook records panel to animate cards on open ───────────────────
+const origLoadRecords = loadRecords;
+// Observe recordsList for child changes
+const recordsObserver = new MutationObserver(() => {
+  setTimeout(animateRecordCards, 30);
+});
+const recordsListEl = document.getElementById('recordsList');
+if (recordsListEl) {
+  recordsObserver.observe(recordsListEl, { childList: true });
+}

@@ -7,7 +7,7 @@
   <title>GlobeWeather</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body data-weather="default">
@@ -27,23 +27,29 @@
     <div class="logo" aria-label="GlobeWeather App">
       <div class="logo-mark" aria-hidden="true">
         <svg viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- Globe ring -->
-          <circle cx="17" cy="17" r="15" stroke="rgba(255,109,0,0.4)" stroke-width="1.2"/>
-          <!-- Latitude lines -->
-          <ellipse cx="17" cy="17" rx="15" ry="6" stroke="rgba(255,179,0,0.25)" stroke-width="0.8"/>
-          <!-- Vertical axis -->
-          <line x1="17" y1="2" x2="17" y2="32" stroke="rgba(255,109,0,0.2)" stroke-width="0.8"/>
-          <!-- Sun ray -->
-          <circle cx="17" cy="9" r="4" fill="url(#sunGrad)" opacity="0.9"/>
-          <!-- Cloud arc -->
-          <path d="M8 21 Q10 17 14 18 Q15 14 20 15 Q24 15 24 20 Q24 23 20 23 H10 Q7 23 8 21Z"
-                fill="rgba(199,36,255,0.35)" stroke="rgba(199,36,255,0.5)" stroke-width="0.6"/>
           <defs>
-            <radialGradient id="sunGrad" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stop-color="#ffe259"/>
-              <stop offset="100%" stop-color="#ff6d00"/>
+            <linearGradient id="globeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#4facfe"/>
+              <stop offset="55%" stop-color="#7c3aed"/>
+              <stop offset="100%" stop-color="#ec4899"/>
+            </linearGradient>
+            <radialGradient id="globeCore" cx="40%" cy="35%" r="65%">
+              <stop offset="0%" stop-color="rgba(79,172,254,0.15)"/>
+              <stop offset="100%" stop-color="rgba(124,58,237,0.05)"/>
             </radialGradient>
           </defs>
+          <!-- Core globe -->
+          <circle cx="17" cy="17" r="14.5" fill="url(#globeCore)" stroke="url(#globeGrad)" stroke-width="1.4"/>
+          <!-- Meridian line -->
+          <line x1="17" y1="2.5" x2="17" y2="31.5" stroke="url(#globeGrad)" stroke-width="0.7" opacity="0.5"/>
+          <!-- Equator ellipse -->
+          <ellipse cx="17" cy="17" rx="14.5" ry="5.5" stroke="url(#globeGrad)" stroke-width="0.7" opacity="0.4"/>
+          <!-- Upper latitude arc -->
+          <ellipse cx="17" cy="17" rx="14.5" ry="10" stroke="rgba(79,172,254,0.25)" stroke-width="0.5" opacity="0.6"/>
+          <!-- Horizontal cap line -->
+          <line x1="2.5" y1="17" x2="31.5" y2="17" stroke="url(#globeGrad)" stroke-width="0.7" opacity="0.3"/>
+          <!-- Accent dot — north pole -->
+          <circle cx="17" cy="4" r="1.8" fill="url(#globeGrad)" opacity="0.9"/>
         </svg>
       </div>
       <span class="logo-text">Globe<em>Weather</em></span>
@@ -51,6 +57,9 @@
 
     <div class="search-wrapper" role="search">
       <form id="searchForm" autocomplete="off" novalidate>
+        <div class="search-label-row">
+          <span class="deccan-label">// SEARCH ANYWHERE</span>
+        </div>
         <div class="search-box" id="searchBox">
           <div class="search-icon" aria-hidden="true">
             <svg viewBox="0 0 20 20" fill="none"><circle cx="9" cy="9" r="6" stroke="currentColor" stroke-width="1.5"/><path d="m16 16-3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
@@ -59,7 +68,7 @@
           <input
             id="searchInput"
             type="text"
-            placeholder="Search any city, zip code, or coordinates…"
+            placeholder="Search any city, coordinates or zip code…"
             aria-label="Search city or location"
             maxlength="100"
             spellcheck="false"
@@ -105,68 +114,100 @@
   </div>
 </header>
 
+<!-- ── Marquee ticker (Deccan.ai style) ── -->
+<div class="marquee-strip" aria-hidden="true">
+  <div class="marquee-track">
+    <span class="marquee-item">⛅ REAL-TIME WEATHER</span>
+    <span class="marquee-sep">·</span>
+    <span class="marquee-item">🌍 196 COUNTRIES</span>
+    <span class="marquee-sep">·</span>
+    <span class="marquee-item">☀️ UV INDEX</span>
+    <span class="marquee-sep">·</span>
+    <span class="marquee-item">💧 DEW POINT</span>
+    <span class="marquee-sep">·</span>
+    <span class="marquee-item">🌬️ WIND ANALYSIS</span>
+    <span class="marquee-sep">·</span>
+    <span class="marquee-item">🏭 AIR QUALITY</span>
+    <span class="marquee-sep">·</span>
+    <span class="marquee-item">🗺️ LIVE MAP</span>
+    <span class="marquee-sep">·</span>
+    <span class="marquee-item">📊 FULL CRUD API</span>
+    <span class="marquee-sep">·</span>
+    <span class="marquee-item">⛅ REAL-TIME WEATHER</span>
+    <span class="marquee-sep">·</span>
+    <span class="marquee-item">🌍 196 COUNTRIES</span>
+    <span class="marquee-sep">·</span>
+    <span class="marquee-item">☀️ UV INDEX</span>
+    <span class="marquee-sep">·</span>
+    <span class="marquee-item">💧 DEW POINT</span>
+    <span class="marquee-sep">·</span>
+    <span class="marquee-item">🌬️ WIND ANALYSIS</span>
+    <span class="marquee-sep">·</span>
+    <span class="marquee-item">🏭 AIR QUALITY</span>
+    <span class="marquee-sep">·</span>
+    <span class="marquee-item">🗺️ LIVE MAP</span>
+    <span class="marquee-sep">·</span>
+    <span class="marquee-item">📊 FULL CRUD API</span>
+    <span class="marquee-sep">·</span>
+  </div>
+</div>
+
 <!-- ════════════════════════  MAIN  ════════════════════════ -->
 <main id="main" class="main-content">
 
   <!-- ── WELCOME STATE ── -->
-  <section id="emptyState" class="welcome-screen" aria-label="Welcome to Skies">
-    <div class="welcome-hero">
+  <section id="emptyState" class="welcome-screen" aria-label="Welcome to GlobeWeather">
+    <div class="welcome-hero" data-reveal>
       <div class="welcome-icon-wrap" aria-hidden="true">
         <div class="welcome-icon-ring ring-1"></div>
         <div class="welcome-icon-ring ring-2"></div>
         <div class="welcome-icon-ring ring-3"></div>
-        <span class="welcome-icon">⛅</span>
+        <span class="welcome-icon">🌐</span>
       </div>
-      <h1 class="welcome-title">Weather, <em>globally</em></h1>
-      <p class="welcome-sub">Search any city worldwide for live conditions, hourly forecasts, UV index, air quality, dew point, and smart hazard advisories.</p>
+      <div class="welcome-subtitle">
+        <span>Real-time</span> · <span>Global</span> · <span>Intelligent</span>
+      </div>
+      <h1 class="welcome-title" id="heroHeadline">
+        <span class="headline-word">Weather</span>
+        <em class="headline-word headline-em">Intelligence</em>
+      </h1>
+      <p class="welcome-sub">Search any city worldwide for live conditions, hourly forecasts, UV index, air quality, dew point, and smart hazard advisories — all in one dashboard.</p>
       <button class="welcome-geo-btn" id="welcomeGeoBtn">
         <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M10 2v2M10 16v2M2 10h2M16 10h2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
         Use my current location
       </button>
     </div>
 
-    <div class="insight-cards" aria-label="Weather insights">
+    <div class="insight-cards" data-reveal aria-label="Weather insights">
       <div class="insight-card">
+        <span class="insight-num">01</span>
         <div class="insight-icon" style="background:linear-gradient(135deg,#f093fb,#f5576c)">🌡️</div>
-        <div>
-          <strong>Feels-Like Temp</strong>
-          <p>Humidity &amp; wind can shift your experience by 10°C+</p>
-        </div>
+        <div><strong>Feels-Like Temp</strong><p>Humidity &amp; wind can shift your experience by 10°C+</p></div>
       </div>
       <div class="insight-card">
+        <span class="insight-num">02</span>
         <div class="insight-icon" style="background:linear-gradient(135deg,#f7971e,#ffd200)">☀️</div>
-        <div>
-          <strong>UV Index</strong>
-          <p>Clouds don't block UV — you can burn on overcast days</p>
-        </div>
+        <div><strong>UV Index</strong><p>Clouds don't block UV — you can burn on overcast days</p></div>
       </div>
       <div class="insight-card">
+        <span class="insight-num">03</span>
         <div class="insight-icon" style="background:linear-gradient(135deg,#4facfe,#00f2fe)">💧</div>
-        <div>
-          <strong>Dew Point</strong>
-          <p>More accurate than humidity for measuring real comfort</p>
-        </div>
+        <div><strong>Dew Point</strong><p>More accurate than humidity for measuring real comfort</p></div>
       </div>
       <div class="insight-card">
+        <span class="insight-num">04</span>
         <div class="insight-icon" style="background:linear-gradient(135deg,#43e97b,#38f9d7)">🌅</div>
-        <div>
-          <strong>Local Time</strong>
-          <p>See the exact time &amp; daylight hours at your destination</p>
-        </div>
+        <div><strong>Local Time</strong><p>See the exact time &amp; daylight hours at your destination</p></div>
       </div>
       <div class="insight-card">
+        <span class="insight-num">05</span>
         <div class="insight-icon" style="background:linear-gradient(135deg,#a18cd1,#fbc2eb)">💨</div>
-        <div>
-          <strong>Wind Direction</strong>
-          <p>Compass bearing matters for windchill &amp; outdoor planning</p>
-        </div>
+        <div><strong>Wind Direction</strong><p>Compass bearing matters for windchill &amp; outdoor planning</p></div>
       </div>
       <div class="insight-card">
+        <span class="insight-num">06</span>
         <div class="insight-icon" style="background:linear-gradient(135deg,#ffecd2,#fcb69f)">👁️</div>
-        <div>
-          <strong>Visibility</strong>
-          <p>Fog can drop below safe driving distance in minutes</p>
-        </div>
+        <div><strong>Visibility</strong><p>Fog can drop below safe driving distance in minutes</p></div>
       </div>
     </div>
   </section>
@@ -186,8 +227,13 @@
   <div id="weatherResults" class="weather-results hidden">
 
     <!-- ── HERO ── -->
-    <section class="hero-section" id="heroCard" aria-label="Current weather">
+    <section class="hero-section" data-reveal id="heroCard" aria-label="Current weather">
       <div class="hero-bg-layer" id="heroBgLayer" aria-hidden="true"></div>
+
+      <div class="hero-live-strip">
+        <span class="live-badge"><span class="live-dot"></span>Live</span>
+        <span class="hero-label">Weather Now</span>
+      </div>
 
       <div class="hero-top">
         <div class="hero-location-block">
@@ -215,6 +261,7 @@
               <span class="hero-temp" id="heroTemp"></span>
             </div>
             <span class="hero-description" id="heroDescription"></span>
+            <hr class="hero-divider" aria-hidden="true"/>
             <div class="hero-feels-row">
               <span class="hero-feels" id="heroFeelsLike"></span>
               <span class="hero-range-badge">
@@ -275,44 +322,44 @@
     </section>
 
     <!-- ── HOURLY ── -->
-    <section class="glass-card" aria-label="24-hour forecast">
+    <section class="glass-card" data-reveal aria-label="24-hour forecast">
       <div class="card-header">
         <h3 class="card-title">
           <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.2"/><path d="M8 5v3l2 2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-          Next 24 Hours
+          ⏱ Next 24 Hours
         </h3>
       </div>
       <div id="hourlyScroll" class="hourly-track" tabindex="0" role="list" aria-label="Hourly forecast"></div>
     </section>
 
     <!-- ── 6-DAY ── -->
-    <section class="glass-card" aria-label="6-day forecast">
+    <section class="glass-card" data-reveal aria-label="6-day forecast">
       <div class="card-header">
         <h3 class="card-title">
           <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="2" y="3" width="12" height="11" rx="2" stroke="currentColor" stroke-width="1.2"/><path d="M5 2v2M11 2v2M2 7h12" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-          6-Day Forecast
+          📅 6-Day Forecast
         </h3>
       </div>
       <div id="dailyForecast" class="daily-grid" role="list" aria-label="Daily forecast"></div>
     </section>
 
     <!-- ── COMFORT DETAILS ── -->
-    <section class="glass-card" aria-label="Comfort and safety details">
+    <section class="glass-card" data-reveal aria-label="Comfort and safety details">
       <div class="card-header">
         <h3 class="card-title">
           <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 2l1.8 3.6L14 6.3l-3 2.9.7 4.1L8 11.1l-3.7 2.2.7-4.1L2 6.3l4.2-.7z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
-          Comfort &amp; Safety
+          🛡️ Comfort &amp; Safety
         </h3>
       </div>
       <div id="comfortDetails" class="comfort-mosaic"></div>
     </section>
 
     <!-- ── MAP SECTION ── -->
-    <section class="glass-card" id="mapCard" aria-label="Location map">
+    <section class="glass-card" data-reveal id="mapCard" aria-label="Location map">
       <div class="card-header">
         <h3 class="card-title">
           <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 2a4 4 0 0 1 4 4c0 3-4 8-4 8S4 9 4 6a4 4 0 0 1 4-4z" stroke="currentColor" stroke-width="1.2"/><circle cx="8" cy="6" r="1.5" stroke="currentColor" stroke-width="1.2"/></svg>
-          Location Map
+          🗺️ Location Map
         </h3>
         <a id="mapOsmLink" href="#" target="_blank" rel="noopener" class="map-ext-link">
           Open in OpenStreetMap ↗
@@ -328,6 +375,12 @@
 
   </div>
 </main>
+
+<footer class="app-footer" role="contentinfo">
+  <span>GlobeWeather — Real-time weather intelligence</span>
+  <span class="footer-sep">·</span>
+  <span>Powered by OpenWeatherMap + OpenStreetMap</span>
+</footer>
 
 <!-- ════════════════════════  PANELS  ════════════════════════ -->
 
