@@ -1,13 +1,14 @@
 services:
   - type: web
     name: globeweather
-    env: python
+    runtime: python
     region: oregon
     plan: free
+    rootDir: weather-app
     buildCommand: pip install -r requirements.txt
-    startCommand: cd python-server && uvicorn main:app --host 0.0.0.0 --port $PORT
+    startCommand: uvicorn app:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: OPENWEATHER_API_KEY
         sync: false
       - key: PYTHON_VERSION
-        value: 3.11.0
+        value: "3.11.0"

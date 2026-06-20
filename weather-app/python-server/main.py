@@ -34,8 +34,12 @@ import export_service as ex
 # ── Suppress SSL warnings (same as Node rejectUnauthorized:false) ─────────────
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-# ── Load .env ─────────────────────────────────────────────────────────────────
-load_dotenv(Path(__file__).parent.parent / ".env")
+# ── Load .env (works from any working directory) ──────────────────────────────
+_env_path = Path(__file__).parent.parent / ".env"
+if _env_path.exists():
+    load_dotenv(_env_path)
+else:
+    load_dotenv()  # fall back to system env vars (production)
 
 # ── App ───────────────────────────────────────────────────────────────────────
 app = FastAPI(
