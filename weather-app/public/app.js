@@ -1131,32 +1131,35 @@ document.addEventListener('keydown', e => {
 /* ════════════════════════════════════════════════════════════════
    DARK / LIGHT MODE TOGGLE
    ════════════════════════════════════════════════════════════════ */
-  const btn       = document.getElementById('themeToggle');
-  const moonIcon  = btn.querySelector('.icon-moon');
-  const sunIcon   = btn.querySelector('.icon-sun');
-  const label     = document.getElementById('themeBtnLabel');
+(function initTheme() {
+  const btn = document.getElementById('themeToggle');
+  if (!btn) return; // safety guard
+
+  const moonIcon    = btn.querySelector('.icon-moon');
+  const sunIcon     = btn.querySelector('.icon-sun');
+  const label       = document.getElementById('themeBtnLabel');
   const STORAGE_KEY = 'gw-theme';
 
   function setTheme(mode) {
     if (mode === 'light') {
       document.body.classList.add('light-mode');
-      moonIcon.style.display = 'none';
-      sunIcon.style.display  = '';
-      label.textContent = 'Dark';
+      if (moonIcon) moonIcon.style.display = 'none';
+      if (sunIcon)  sunIcon.style.display  = '';
+      if (label)    label.textContent = 'Dark';
       btn.title = 'Switch to dark mode';
       btn.setAttribute('aria-label', 'Switch to dark mode');
     } else {
       document.body.classList.remove('light-mode');
-      moonIcon.style.display = '';
-      sunIcon.style.display  = 'none';
-      label.textContent = 'Light';
+      if (moonIcon) moonIcon.style.display = '';
+      if (sunIcon)  sunIcon.style.display  = 'none';
+      if (label)    label.textContent = 'Light';
       btn.title = 'Switch to light mode';
       btn.setAttribute('aria-label', 'Switch to light mode');
     }
     try { localStorage.setItem(STORAGE_KEY, mode); } catch(_) {}
   }
 
-  // Load saved preference or use system preference
+  // Load saved preference or system preference
   let saved;
   try { saved = localStorage.getItem(STORAGE_KEY); } catch(_) {}
   const preferLight = window.matchMedia('(prefers-color-scheme: light)').matches;
@@ -1167,7 +1170,7 @@ document.addEventListener('keydown', e => {
     setTheme(isLight ? 'dark' : 'light');
   });
 
-  // React to OS-level theme change
+  // React to OS-level theme change (only if no saved pref)
   window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', e => {
     let current;
     try { current = localStorage.getItem(STORAGE_KEY); } catch(_) {}
