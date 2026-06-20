@@ -1,7 +1,6 @@
 """
 database.py — TinyDB CRUD operations
 Collections: searches, snapshots, locations, range_queries
-Stored as JSON files in ../data/
 """
 
 from __future__ import annotations
@@ -13,8 +12,12 @@ from typing import Optional
 
 from tinydb import TinyDB, Query
 
-# ── Data directory ────────────────────────────────────────────────────────────
-DATA_DIR = Path(__file__).parent.parent / "data"
+# ── Data directory — use /tmp on Render (ephemeral but writable) ──────────────
+import os
+if os.getenv("RENDER"):
+    DATA_DIR = Path("/tmp/globeweather_data")
+else:
+    DATA_DIR = Path(__file__).parent / "weather-app" / "data"
 DATA_DIR.mkdir(parents=True, exist_ok=True)
 
 # ── Open collections ──────────────────────────────────────────────────────────

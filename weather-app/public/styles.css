@@ -2704,3 +2704,82 @@ body:not(.light-mode) .hero-section,
 body:not(.light-mode) .app-header {
   transition: background-color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
 }
+
+/* ════════════════════════════════════════════════════════
+   WELCOME PHOTO BACKGROUND
+   ════════════════════════════════════════════════════════ */
+.welcome-screen {
+  position: relative;
+  min-height: 100dvh;
+  padding-top: 0;
+  overflow: hidden;
+}
+.welcome-photo-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+.welcome-photo-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+  transform: scale(1.04);
+  animation: photoZoom 18s ease-in-out infinite alternate;
+}
+.welcome-photo-bg img.loaded { opacity: 1; }
+@keyframes photoZoom {
+  0%   { transform: scale(1.04) translate(0,0); }
+  50%  { transform: scale(1.08) translate(-1%,-0.5%); }
+  100% { transform: scale(1.04) translate(0.5%,0.5%); }
+}
+.welcome-photo-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(5,7,15,0.45) 0%,
+    rgba(5,7,15,0.25) 30%,
+    rgba(5,7,15,0.55) 65%,
+    rgba(5,7,15,0.92) 100%
+  );
+}
+
+/* Ensure content sits above photo */
+.welcome-screen > *:not(.welcome-photo-bg) {
+  position: relative;
+  z-index: 1;
+}
+.welcome-screen .welcome-hero {
+  padding-top: 12vh;
+}
+.welcome-screen .insight-cards {
+  margin-bottom: 3rem;
+}
+
+/* Photo credit pill */
+.photo-credit {
+  position: absolute;
+  bottom: 1rem;
+  right: 1.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 0.08em;
+  z-index: 2;
+  text-decoration: none;
+  transition: color var(--t-mid);
+}
+.photo-credit:hover { color: rgba(255,255,255,0.6); }
+
+/* ════════════════════════════════════════════════════════
+   LOTTIE WEATHER ICON
+   ════════════════════════════════════════════════════════ */
+.hero-lottie-icon {
+  position: relative;
+  z-index: 1;
+  filter: drop-shadow(0 0 24px var(--wx-glow));
+}

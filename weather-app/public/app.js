@@ -262,6 +262,7 @@ function renderWeather(w) {
 
   const cur = w.current;
   applyTheme(cur.condition);
+  setHeroLottie(cur.condition);
 
   heroCity.textContent    = w.city;
   heroCountry.textContent = w.country;
@@ -1354,4 +1355,73 @@ const recordsObserver = new MutationObserver(() => {
 const recordsListEl = document.getElementById('recordsList');
 if (recordsListEl) {
   recordsObserver.observe(recordsListEl, { childList: true });
+}
+
+/* ════════════════════════════════════════════════════════════════
+   WELCOME SCREEN — DYNAMIC WEATHER PHOTOS (Unsplash)
+   ════════════════════════════════════════════════════════════════ */
+
+const WEATHER_PHOTOS = [
+  { url: 'https://images.unsplash.com/photo-1504608524841-42584120d693?w=1600&q=80&fit=crop', credit: 'Valentin Müller' },
+  { url: 'https://images.unsplash.com/photo-1534088568595-a066f410bcda?w=1600&q=80&fit=crop', credit: 'Josep Castells' },
+  { url: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1600&q=80&fit=crop', credit: 'John Fowler' },
+  { url: 'https://images.unsplash.com/photo-1499346030926-9a72daac6c63?w=1600&q=80&fit=crop', credit: 'Stephan Henning' },
+  { url: 'https://images.unsplash.com/photo-1513002749550-c59d786b8e6c?w=1600&q=80&fit=crop', credit: 'CHUTTERSNAP' },
+  { url: 'https://images.unsplash.com/photo-1536244636800-a3f74db0f3cf?w=1600&q=80&fit=crop', credit: 'NASA' },
+];
+
+(function initWelcomePhoto() {
+  const img = document.getElementById('welcomePhotoImg');
+  if (!img) return;
+  let idx = 0;
+
+  function loadPhoto(i) {
+    const p = WEATHER_PHOTOS[i % WEATHER_PHOTOS.length];
+    const next = new Image();
+    next.onload = () => {
+      img.classList.remove('loaded');
+      setTimeout(() => {
+        img.src = p.url;
+        img.classList.add('loaded');
+        const credit = document.querySelector('.photo-credit');
+        if (credit) credit.textContent = 'Photo: ' + p.credit + ' / Unsplash';
+      }, 300);
+    };
+    next.src = p.url;
+  }
+
+  img.addEventListener('load', () => img.classList.add('loaded'), { once: true });
+  img.classList.add('loaded');
+  setInterval(() => { idx++; loadPhoto(idx); }, 12000);
+})();
+
+/* ════════════════════════════════════════════════════════════════
+   LOTTIE WEATHER ICONS
+   ════════════════════════════════════════════════════════════════ */
+
+const LOTTIE_MAP = {
+  Clear:        'https://assets9.lottiefiles.com/packages/lf20_yhTqph.json',
+  Clouds:       'https://assets2.lottiefiles.com/packages/lf20_v4PJXE.json',
+  Rain:         'https://assets10.lottiefiles.com/packages/lf20_JjbuqD.json',
+  Drizzle:      'https://assets10.lottiefiles.com/packages/lf20_JjbuqD.json',
+  Thunderstorm: 'https://assets2.lottiefiles.com/packages/lf20_w9VFFU.json',
+  Snow:         'https://assets3.lottiefiles.com/packages/lf20_aTHLoplx.json',
+  Mist:         'https://assets2.lottiefiles.com/packages/lf20_v4PJXE.json',
+  Fog:          'https://assets2.lottiefiles.com/packages/lf20_v4PJXE.json',
+  Haze:         'https://assets9.lottiefiles.com/packages/lf20_yhTqph.json',
+  default:      'https://assets9.lottiefiles.com/packages/lf20_yhTqph.json',
+};
+
+function setHeroLottie(condition) {
+  const player   = document.getElementById('heroLottie');
+  const fallback = document.getElementById('heroIcon');
+  if (!player) return;
+  try {
+    player.load(LOTTIE_MAP[condition] || LOTTIE_MAP.default);
+    player.style.display  = '';
+    if (fallback) fallback.style.display = 'none';
+  } catch(e) {
+    player.style.display  = 'none';
+    if (fallback) fallback.style.display = '';
+  }
 }

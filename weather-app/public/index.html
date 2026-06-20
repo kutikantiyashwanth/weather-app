@@ -8,6 +8,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
+  <!-- Lottie for animated weather icons -->
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body data-weather="default">
@@ -162,6 +164,16 @@
 
   <!-- ── WELCOME STATE ── -->
   <section id="emptyState" class="welcome-screen" aria-label="Welcome to GlobeWeather">
+    <!-- Dynamic hero photo background -->
+    <div class="welcome-photo-bg" id="welcomePhotoBg">
+      <img id="welcomePhotoImg"
+           src="https://images.unsplash.com/photo-1504608524841-42584120d693?w=1600&q=80&fit=crop"
+           alt="Weather background"
+           loading="eager" />
+      <div class="welcome-photo-overlay"></div>
+      <a class="photo-credit" href="https://unsplash.com" target="_blank" rel="noopener">Photo: Valentin Müller / Unsplash</a>
+    </div>
+
     <div class="welcome-hero" data-reveal>
       <div class="welcome-icon-wrap" aria-hidden="true">
         <div class="welcome-icon-ring ring-1"></div>
@@ -258,6 +270,12 @@
       <div class="hero-body">
         <div class="hero-primary">
           <div class="hero-weather-visual" aria-hidden="true">
+            <lottie-player
+              id="heroLottie"
+              class="hero-lottie-icon"
+              autoplay loop
+              style="width:110px;height:110px;display:none;"
+            ></lottie-player>
             <img id="heroIcon" src="" alt="" class="hero-weather-icon" />
             <div class="hero-icon-glow" id="heroIconGlow"></div>
           </div>
