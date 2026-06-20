@@ -1129,8 +1129,51 @@ document.addEventListener('keydown', e => {
 });
 
 /* ════════════════════════════════════════════════════════════════
-   SHAKE KEYFRAME INJECTION
+   DARK / LIGHT MODE TOGGLE
    ════════════════════════════════════════════════════════════════ */
+  const btn       = document.getElementById('themeToggle');
+  const moonIcon  = btn.querySelector('.icon-moon');
+  const sunIcon   = btn.querySelector('.icon-sun');
+  const label     = document.getElementById('themeBtnLabel');
+  const STORAGE_KEY = 'gw-theme';
+
+  function setTheme(mode) {
+    if (mode === 'light') {
+      document.body.classList.add('light-mode');
+      moonIcon.style.display = 'none';
+      sunIcon.style.display  = '';
+      label.textContent = 'Dark';
+      btn.title = 'Switch to dark mode';
+      btn.setAttribute('aria-label', 'Switch to dark mode');
+    } else {
+      document.body.classList.remove('light-mode');
+      moonIcon.style.display = '';
+      sunIcon.style.display  = 'none';
+      label.textContent = 'Light';
+      btn.title = 'Switch to light mode';
+      btn.setAttribute('aria-label', 'Switch to light mode');
+    }
+    try { localStorage.setItem(STORAGE_KEY, mode); } catch(_) {}
+  }
+
+  // Load saved preference or use system preference
+  let saved;
+  try { saved = localStorage.getItem(STORAGE_KEY); } catch(_) {}
+  const preferLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+  setTheme(saved || (preferLight ? 'light' : 'dark'));
+
+  btn.addEventListener('click', () => {
+    const isLight = document.body.classList.contains('light-mode');
+    setTheme(isLight ? 'dark' : 'light');
+  });
+
+  // React to OS-level theme change
+  window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', e => {
+    let current;
+    try { current = localStorage.getItem(STORAGE_KEY); } catch(_) {}
+    if (!current) setTheme(e.matches ? 'light' : 'dark');
+  });
+})();
 (function() {
   const s = document.createElement('style');
   s.textContent = `

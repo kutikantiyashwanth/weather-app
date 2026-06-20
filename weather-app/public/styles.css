@@ -2449,3 +2449,256 @@ input[type="date"].form-input { color-scheme: dark; }
   .daily-item          { opacity: 1; transform: none; }
   .record-card         { opacity: 1; transform: none; }
 }
+
+/* ════════════════════════════════════════════════════════
+   LIGHT MODE THEME
+   ════════════════════════════════════════════════════════ */
+
+body.light-mode {
+  --bg-base:   #f8f9fc;
+  --bg-1:      #f0f2f8;
+  --bg-2:      #e8ecf5;
+  --bg-3:      #dde3ef;
+  --bg-4:      #d0d8ea;
+  --bg-5:      #c4cde2;
+
+  --b-subtle:  rgba(30,50,120,0.07);
+  --b-default: rgba(30,50,120,0.12);
+  --b-strong:  rgba(30,50,120,0.22);
+  --b-focus:   rgba(79,172,254,0.6);
+
+  --t-primary:   #0d1226;
+  --t-secondary: rgba(13,18,38,0.72);
+  --t-tertiary:  rgba(13,18,38,0.46);
+  --t-muted:     rgba(13,18,38,0.28);
+
+  /* legacy aliases */
+  --bg:       var(--bg-base);
+  --border:   var(--b-default);
+  --border-2: var(--b-strong);
+  --ink:      var(--t-primary);
+  --ink-2:    var(--t-secondary);
+  --ink-3:    var(--t-tertiary);
+  --ink-4:    var(--t-muted);
+}
+
+body.light-mode {
+  background: var(--bg-base);
+  color: var(--t-primary);
+}
+
+/* Light mode background mesh */
+body.light-mode::before {
+  background-image:
+    radial-gradient(ellipse 80% 60% at 15% 10%,  rgba(124,58,237,0.04) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 85% 85%,  rgba(79,172,254,0.04) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 55% 45%,  rgba(236,72,153,0.02) 0%, transparent 60%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.015'/%3E%3C/svg%3E");
+}
+
+/* Light mode header */
+body.light-mode .app-header {
+  background: rgba(248,249,252,0.92);
+  border-bottom-color: var(--b-default);
+}
+
+/* Light mode glass cards */
+body.light-mode .glass-card {
+  background: rgba(240,242,248,0.85);
+  border-color: var(--b-default);
+  box-shadow: 0 2px 20px rgba(30,50,120,0.08);
+}
+
+/* Light mode hero */
+body.light-mode .hero-bg-layer {
+  background: linear-gradient(145deg, rgba(79,172,254,0.08) 0%, rgba(124,58,237,0.06) 55%, rgba(248,249,252,0) 100%);
+}
+body.light-mode .hero-bg-layer::after {
+  background: linear-gradient(to bottom, transparent 20%, rgba(248,249,252,0.9) 100%);
+}
+body.light-mode .hero-city { color: var(--t-primary); text-shadow: none; }
+body.light-mode .hero-description { color: var(--t-secondary); }
+body.light-mode .hero-temp { filter: none; }
+body.light-mode .hero-section {
+  box-shadow: 0 4px 40px rgba(79,172,254,0.12);
+  border-color: var(--b-default);
+}
+
+/* Light mode stats */
+body.light-mode .hero-stat {
+  background: rgba(240,242,248,0.8);
+  border-color: var(--b-default);
+}
+body.light-mode .hero-stat:hover {
+  background: rgba(79,172,254,0.06);
+}
+body.light-mode .stat-label { color: var(--t-muted); }
+body.light-mode .stat-value { color: var(--t-primary); }
+
+/* Light mode hourly */
+body.light-mode .hourly-item {
+  background: var(--bg-2);
+  border-color: var(--b-default);
+}
+body.light-mode .hourly-item:hover {
+  background: var(--bg-3);
+}
+body.light-mode .hourly-time { color: var(--t-tertiary); }
+body.light-mode .hourly-temp { color: var(--t-primary); }
+
+/* Light mode daily */
+body.light-mode .daily-item {
+  background: var(--bg-2);
+  border-color: var(--b-default);
+}
+body.light-mode .daily-item:hover { background: var(--bg-3); }
+body.light-mode .daily-day { color: var(--t-secondary); }
+
+/* Light mode comfort tiles */
+body.light-mode .comfort-tile {
+  background: var(--bg-2);
+  border-color: var(--b-default);
+}
+body.light-mode .comfort-tile:hover { background: var(--bg-3); }
+body.light-mode .tile-value { color: var(--t-primary); }
+body.light-mode .tile-context { color: var(--t-secondary); }
+
+/* Light mode drawers */
+body.light-mode .drawer {
+  background: rgba(240,242,248,0.98);
+  border-left-color: var(--b-default);
+}
+body.light-mode .drawer-header { border-bottom-color: var(--b-default); }
+body.light-mode .drawer-title {
+  background: var(--grad-brand);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+body.light-mode .history-item,
+body.light-mode .saved-item {
+  background: var(--bg-1);
+  border-color: var(--b-default);
+}
+body.light-mode .history-item:hover,
+body.light-mode .saved-item:hover  { background: var(--bg-2); }
+body.light-mode .history-city,
+body.light-mode .saved-item-btn    { color: var(--t-primary); }
+
+/* Light mode modals */
+body.light-mode .modal {
+  background: rgba(240,242,248,0.99);
+  border-color: var(--b-default);
+}
+body.light-mode .modal-header {
+  background: rgba(240,242,248,0.99);
+  border-bottom-color: var(--b-default);
+}
+body.light-mode .modal-title { color: var(--t-primary); }
+body.light-mode .form-input {
+  background: var(--bg-1);
+  border-color: var(--b-default);
+  color: var(--t-primary);
+}
+body.light-mode .form-input:focus {
+  background: #fff;
+  border-color: var(--accent);
+}
+body.light-mode .form-label { color: var(--t-secondary); }
+body.light-mode .modal-desc {
+  background: rgba(79,172,254,0.06);
+  border-color: rgba(79,172,254,0.2);
+}
+
+/* Light mode records */
+body.light-mode .records-tabs { background: var(--bg-1); border-color: var(--b-default); }
+body.light-mode .rec-tab:not(.active) { color: var(--t-tertiary); }
+body.light-mode .rec-tab:not(.active):hover { background: var(--bg-2); color: var(--t-primary); }
+body.light-mode .record-card { background: var(--bg-1); border-color: var(--b-default); }
+body.light-mode .record-card:hover { background: var(--bg-2); }
+body.light-mode .record-title { color: var(--t-primary); }
+body.light-mode .record-tag { background: var(--bg-2); border-color: var(--b-default); }
+body.light-mode .export-select { background: var(--bg-2); border-color: var(--b-default); color: var(--t-primary); }
+
+/* Light mode buttons */
+body.light-mode .btn--ghost {
+  background: var(--bg-2);
+  border-color: var(--b-default);
+  color: var(--t-secondary);
+}
+body.light-mode .btn--ghost:hover { background: var(--bg-3); color: var(--t-primary); }
+body.light-mode .nav-btn { background: var(--bg-2); border-color: var(--b-default); color: var(--t-secondary); }
+body.light-mode .nav-btn:hover { background: var(--bg-3); color: var(--t-primary); }
+
+/* Light mode toast */
+body.light-mode .toast {
+  background: rgba(240,242,248,0.97);
+  border-color: var(--b-default);
+  color: var(--t-primary);
+  box-shadow: 0 8px 30px rgba(30,50,120,0.15);
+}
+
+/* Light mode search */
+body.light-mode .search-box { background: var(--bg-1); border-color: var(--b-default); }
+body.light-mode .search-box:focus-within { background: #fff; }
+body.light-mode #searchInput { color: var(--t-primary); }
+body.light-mode .search-error { color: var(--red); }
+
+/* Light mode welcome */
+body.light-mode .welcome-title { color: var(--t-primary); }
+body.light-mode .welcome-sub { color: var(--t-secondary); }
+body.light-mode .insight-card { background: var(--bg-1); border-color: var(--b-default); }
+body.light-mode .insight-card:hover { background: var(--bg-2); }
+body.light-mode .insight-card strong { color: var(--t-primary); }
+body.light-mode .insight-card p { color: var(--t-secondary); }
+body.light-mode .welcome-subtitle { color: var(--t-tertiary); }
+
+/* Light mode ambient orbs — lighter */
+body.light-mode .ambient-orb { opacity: 0.05; }
+
+/* Light mode marquee */
+body.light-mode .marquee-strip {
+  background: rgba(240,242,248,0.97);
+  border-color: var(--b-default);
+}
+body.light-mode .marquee-strip::before { background: linear-gradient(90deg, rgba(240,242,248,1), transparent); }
+body.light-mode .marquee-strip::after  { background: linear-gradient(270deg, rgba(240,242,248,1), transparent); }
+body.light-mode .marquee-item { color: var(--t-tertiary); }
+
+/* Light mode footer */
+body.light-mode .app-footer { color: var(--t-muted); border-top-color: var(--b-default); }
+
+/* Light mode loading */
+body.light-mode .loading-text { color: var(--t-tertiary); }
+
+/* Light mode map */
+body.light-mode .map-container { background: var(--bg-2); border-color: var(--b-default); }
+
+/* ── Theme toggle button ─────────────────────────────── */
+.theme-toggle-btn {
+  position: relative;
+  overflow: hidden;
+}
+.theme-toggle-btn:hover {
+  background: var(--accent-dim);
+  border-color: rgba(79,172,254,0.3);
+  color: var(--accent);
+}
+
+/* Smooth theme transition */
+body, body * {
+  transition:
+    background-color 0.35s ease,
+    border-color 0.35s ease,
+    color 0.35s ease,
+    box-shadow 0.35s ease !important;
+}
+/* But keep animations fast for interactive elements */
+body button, body a, body input {
+  transition:
+    background-color 0.12s ease,
+    border-color 0.12s ease,
+    color 0.12s ease,
+    transform 0.12s ease,
+    box-shadow 0.12s ease !important;
+}

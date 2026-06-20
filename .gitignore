@@ -1,0 +1,28 @@
+# Environment — never commit secrets
+.env
+weather-app/.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+*.egg-info/
+.Python
+
+# TinyDB data files (auto-created at runtime)
+weather-app/data/*.json
+weather-app/data/*.db
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test files
+test_crud.py
+weather-app/test_crud.py
+
+# VS Code
+.vscode/
