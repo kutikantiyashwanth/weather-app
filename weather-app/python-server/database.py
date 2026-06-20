@@ -13,8 +13,12 @@ from typing import Optional
 
 from tinydb import TinyDB, Query
 
-# ── Data directory ────────────────────────────────────────────────────────────
-DATA_DIR = Path(__file__).parent.parent / "data"
+# ── Data directory — use /tmp on Render (ephemeral but writable) ──────────────
+import os
+if os.getenv("RENDER"):
+    DATA_DIR = Path("/tmp/globeweather_data")
+else:
+    DATA_DIR = Path(__file__).parent.parent / "data"
 DATA_DIR.mkdir(parents=True, exist_ok=True)
 
 # ── Open collections ──────────────────────────────────────────────────────────

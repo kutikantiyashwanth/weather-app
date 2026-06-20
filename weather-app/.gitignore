@@ -10,8 +10,9 @@ venv/
 env/
 *.egg-info/
 
-# TinyDB data (exclude from git, will be created at runtime)
-data/
+# TinyDB data — exclude actual data files but keep folder
+data/*.json
+data/*.db
 
 # OS
 .DS_Store
